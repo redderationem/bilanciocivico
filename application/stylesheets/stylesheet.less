@@ -1,0 +1,657 @@
+/**
+ * © Copyright 2016 Associazione di promozione sociale Redde Rationem
+ * 
+ * This file was authored by:
+ *
+ * - Gianmarco Tuccini <gianmarcotuccini@redderationem.org>
+ * - Paolo Landi <paololandi@redderationem.org>
+ * - Marco Santini <marcosantini@redderationem.org>
+ *
+ * This file is part of BilancioCivico.
+ * 
+ * BilancioCivico is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * BilancioCivico is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with BilancioCivico.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Supplemental term under GNU Affero General Public License version 3 section 7
+ *
+ * You must retain the whole attribution (both the copyright line and the actual authors' list)
+ */
+@color1: hsl(201, 100%, 22%);
+@color2: hsl(31, 96%, 58%);
+@color3: tint(@color2, 66%);
+*{
+	-webkit-box-sizing: content-box;
+	background-color: transparent;
+	border: 0;
+	box-sizing: content-box;
+	cursor: inherit;
+	display: inline;
+	color: inherit;
+	font: inherit;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	text-transform: inherit;
+	/*
+	all: unset;
+	*/
+}
+html{
+	background: #eeeeee url(../images/background.jpg) no-repeat center top;
+	background-size: contain;
+	color: #444444;
+	display: block;
+	font: normal 16px/1.5 'Segoe Ui', Segoe, Tahoma, Geneva, sans-serif;
+	overflow-x: hidden;
+}
+	script{
+		display: none;
+	}
+	head{
+		display: none;
+	}
+	body{
+		display: block;
+		overflow-x: hidden;
+	}
+		div{
+			display: block;
+		}
+		.page{
+			margin: 0 auto;
+			width: 60em;
+		}
+			a{
+				color: @color1;
+				cursor: pointer;
+			}
+			a:hover{
+				opacity: 0.5;
+			}
+			button{
+				color: @color1;
+				cursor: pointer;
+			}
+			button:hover{
+				opacity: 0.5;
+			}
+			.header{
+				background: #cccccc;
+				background: rgba(0, 0, 0, 0.25);
+				box-shadow: 0 0 0.375em rgba(0, 0, 0, 0.25);
+				color: #444444;
+				margin-left: -100em;
+				margin-top: 4.5em;
+				padding: 1.5em 100em;
+				width: 100%;
+			}
+				h1{
+					color: #ffffff;
+					display: block;
+					font-size: 2em;
+					font-weight: bold;
+					overflow: hidden;
+					padding: 0.75em;
+					text-overflow: ellipsis;
+					text-transform: uppercase;
+					white-space: nowrap;
+				}
+				.header h1 img{
+					display: inline-block;
+					height: 2em;
+					margin-right: 0.5em;
+					vertical-align: middle;
+				}
+				.navigation.primary{
+					background: @color1;
+					box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.5);
+					display: block;
+					font-weight: bold;
+					left: 0;
+					position: fixed;
+					text-transform: uppercase;
+					top: 0;
+					width: 100%;
+					z-index: 11000;
+				}
+					.navigation.primary a{	
+						color: contrast(@color1, #000000, #ffffff, 50%);
+					}
+					.navigation.primary > a{
+						display: block;
+						height: 1.5em;
+						padding: 1.5em;
+						float: left;
+					}
+						.navigation.primary > a img{
+							display: inline-block;
+							height: 100%;
+						}
+					.navigation.primary ul{
+						display: block;
+						text-align: right;
+					}
+						.navigation.primary li{
+							border-left: 0.0625em solid darken(@color1, 10%);
+							display: inline-block;
+							padding: 1.5em;
+						}
+					.navigation.secondary{
+						background: @color1;
+						border-radius: 0.375em;
+						box-shadow: 0 0 0.375em rgba(0, 0, 0, 0.25);
+						margin-bottom: 1.5em;
+						overflow: hidden;
+					}
+						.navigation.secondary form{
+							background: #ffffff;
+							box-shadow: inset 0 0 0.1875em rgba(0, 0, 0, 0.25);
+							display: block;
+							font-weight: bold;
+							float: left;
+							width: 50%;
+						}
+							.navigation.secondary label{
+								display: block;
+								margin-right: 4.5em;
+								padding: 1.5em;
+							}
+								.navigation.secondary input{
+									display: block;
+									width: 100%;
+								}
+							.navigation.secondary button{
+								display: block;
+								float: right;
+								height: 1.5em;
+								margin-top: -4.5em;
+								padding: 1.5em;
+							}
+						.navigation.secondary ul{
+							color: contrast(@color1, #ffffff, #000000, 50%);
+							display: block;
+							padding: 1.5em;
+							text-align: right;
+						}
+							.navigation.secondary li ~ li{
+								margin-left: 0.75em;
+							}
+							.navigation.secondary a{
+								color: contrast(@color1, #ffffff, #000000, 50%);
+								font-weight: bold;
+							}
+					.navigation.secondary.home{
+					}
+						.navigation.secondary.home form{
+							float: none;
+							width: auto;
+						}
+					.navigation.secondary.highlighted{
+					}
+						.navigation.secondary.highlighted form{
+						}
+			.body{
+				color: #444444;
+				padding: 1.5em 0;
+			}
+				.section{
+					background: #ffffff;
+					border-radius: 0.375em;
+					box-shadow: 0 0 0.1875em rgba(0, 0, 0, 0.25);
+					display: block;
+					overflow: hidden;
+					padding: 0.75em;
+				}
+					.section form{
+					}
+						.section form label{
+							display: block;
+							padding: 0.75em;
+						}
+							.section form label span{
+								color: #888888;
+								display: block;
+								font-variant: small-caps;
+								text-transform: lowercase;
+							}
+							.section form label input{
+								display: block;
+								width: 100%;
+							}
+							.section form label select{
+								display: block;
+								width: 100%;
+							}
+								.section form label option{
+									display: block;
+								}
+							.section form label textarea{
+								display: block;
+								height: 9em;
+								width: 100%;
+							}
+						.section form label ~ label{
+							border-top: 0.0625em solid #dddddd;
+							margin-top: -0.0625em;
+						}
+						.section form button{
+							display: inline-block;
+							height: 1.5em;
+							padding: 0.75em;
+						}
+					h2{
+						background: #eeeeee;
+						box-shadow: inset 0 -0.046875em 0.046875em rgba(0, 0, 0, 0.25);
+						color: #000000;
+						display: block;
+						font-weight: bold;
+						margin-bottom: 0.75em;
+						margin-left: -0.75em;
+						margin-top: -0.75em;
+						padding: 1.5em;
+						width: 100%;
+					}
+					h3{
+						background: #eeeeee;
+						border-radius: 0.375em;
+						color: #000000;
+						display: block;
+						padding: 0.75em;
+					}
+					p{
+						display: block;
+						padding: 0.75em;
+					}
+					p + p{
+					}
+				.section ~ .section{
+					margin-top: 1.5em;
+				}
+				.main{
+					float: left;
+					width: 39.5em;
+				}
+					.main .section{
+					}
+						dl{
+							display: block;
+							padding: 0.75em;
+						}
+							dt{
+								color: #888888;
+								display: block;
+								float: left;
+								font-variant: small-caps;
+								text-align: right;
+								text-transform: lowercase;
+								width: 9em;
+							}
+							dd{
+								display: block;
+								margin-left: 9.75em;
+							}
+						.atAGlance{
+							font-weight: bold;
+							padding: 0.375em 0;
+						}
+							.atAGlance div{
+							}
+								.atAGlance span{
+									display: block;
+									padding: 0.375em 0.75em;
+									white-space: nowrap;
+								}
+							.atAGlance div:first-child{
+								background: @color3;
+								border-top-left-radius: 0.375em;
+								border-top-right-radius: 0.375em;
+							}
+							.atAGlance div:first-child + div{
+								background: @color2;
+								color: contrast(@color2, #000000, #ffffff, 50%);
+							}
+							.atAGlance div:first-child + div + div{
+								background: @color3;
+								border-bottom-left-radius: 0.375em;
+								border-bottom-right-radius: 0.375em;
+							}
+						.details{
+						}
+							.details > input{
+								left: 0;
+								position: fixed;
+								top: 0;
+							}
+							.details > label{
+								cursor: pointer;
+								display: block;
+								padding: 0.75em 2.25em 0.75em 0.75em;
+								position: relative;
+							}
+							.details > label:after{
+								content: '-';
+								color: @color1;
+								font-size: 1.25em;
+								line-height: 1.2;
+								position: absolute;
+								right: 0.6em;
+								top: 0.6em;
+							}
+							.details > label:hover{
+								opacity: 0.5;
+							}
+							.details > input:not(:checked) ~ label:after{
+								content: '+';
+							}
+							.details > input:not(:checked) ~ label ~ *{
+								display: none;
+							}
+						.details ~ .details{
+						}
+							.details ~ .details > label:after{
+								content: '↰';
+							}
+							.details ~ .details > input:not(:checked) ~ label:after{
+								content: '↳';
+							}
+						.list{
+							display: block;
+						}
+							.list li{
+								display: block;
+								position: relative;
+							}
+								.list li > a{
+									display: block;
+									overflow: hidden;
+									padding: 0.75em;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+								}
+								.list label{
+									margin-top: -1.5em;
+								}
+								.list dl{
+									border-top: 0.0625em dotted #dddddd;
+									margin-top: -0.0625em;
+								}
+								.list .list{
+									background: rgba(0, 0, 0, 0.05);
+									margin-bottom: 1.5em;
+									margin-left: 1.5em;
+								}
+									.list .list li > li{
+									}
+										.sparkline{
+											margin-top: -0.75em;
+											padding: 0.375em 0.75em;
+										}
+											.sparkline > div{
+												min-width: 0.0625em;
+											}
+											.sparkline > div:first-child{
+												background: @color2;
+												border-top-left-radius: 0.375em;
+												border-top-right-radius: 0.375em;
+												height: 0.375em;
+											}
+											.sparkline > div:first-child + div{
+												background: @color3;
+												border-bottom-left-radius: 0.375em;
+												border-bottom-right-radius: 0.375em;
+												height: 0.375em;
+											}
+										.sparkline + .details{
+										}
+											.sparkline + .details label{
+												margin-top: -0.75em;
+											}
+							.list li ~ li{
+								border-top: 0.0625em solid #dddddd;
+								margin-top: -0.0625em;
+							}
+						.pagination{
+						}
+							.pagination p{
+								display: block;
+								float: left;
+								padding: 0.75em;
+							}
+							.pagination ul{
+								display: block;
+								font-size: 1.25em;
+								line-height: 1.2;
+								padding: 0.6em;
+								text-align: right;
+							}
+								.pagination li ~ li{
+									margin-left: 0.6em;
+								}
+				.aside{
+					margin-left: 41em;
+					width: 19em;
+				}
+					.menu{
+						display: block;
+						padding: 0.75em;
+					}
+						.menu li{
+							display: block;
+						}
+						.menu li:before{
+							content: '> ';
+						}
+					.menu.inline{
+					}
+						.menu.inline li{
+							display: inline;
+						}
+						.menu.inline li:first-child:before{
+							content: '';
+						}
+						.menu.inline li ~ li:before{
+							content: ', ';
+						}
+				.body:after{
+					clear: both;
+					content: '';
+					display: table;
+				}
+			.footer{
+				background: #ffffff;
+				border-radius: 0.375em;
+				box-shadow: 0 0 0.09375em rgba(0, 0, 0, 0.25);
+				color: #888888;
+				margin-bottom: 1.5em;
+			}
+				.footer p{
+					display: block;
+					font-size: 0.9em;
+					line-height: 1.888888;
+					padding: 1.888888em;
+					text-align: right;
+				}
+				.footer p + p{
+					margin-top: -3.333332em;
+				}
+.home{
+}
+	.home .page{
+	}
+		.home .header{
+			background: #888888;
+			background: rgba(0, 0, 0, 0.375);
+			padding-bottom: 3em;
+			padding-top: 3em;
+		}
+			.home .navigation.primary{
+			}
+				.home .navigation.primary > a{
+					display: none;
+				}
+		.home .body{
+			padding-bottom: 3em;
+			padding-top: 3em;
+		}
+@media (max-width: 959px){
+html{
+	font-size: 15px;
+}
+	body{
+	}
+		.page{
+			width: 48em;
+		}
+			.body{
+			}
+				.main{
+					float: none;
+					width: auto;
+				}
+				.aside{
+					margin-left: 0;
+					margin-top: 1.5em;
+					width: auto;
+				}
+}
+@media (max-width: 719px){
+html{
+	font-size: 14px;
+	overflow-x: visible;
+}
+	body{
+		overflow-x: visible;
+	}
+		.page{
+			margin: 0;
+			min-width: 22em;
+			width: auto;
+		}
+			.header{
+				margin-left: 0;
+				margin-top: 3em;
+				overflow: visible;
+				padding: 0;
+				width: auto;
+			}
+				.header h1{
+					font-size: 1.5em;
+					line-height: 1;
+					margin: 0.5em 0;
+					padding: 1em 0.5em 0.5em 0.5em;
+				}
+				.navigation.primary{
+					min-width: 22em;
+				}
+					.navigation.primary > a{
+						padding: 0.75em;
+					}
+					.navigation.primary ul{
+						padding: 0.75em;
+					}
+						.navigation.primary li{
+							border-left: 0;
+							padding: 0;
+						}
+						.navigation.primary li ~ li{
+							margin-left: 0.75em;
+						}
+				.navigation.secondary{
+					border-radius: 0;
+					margin-bottom: 0;
+				}
+					.navigation.secondary form{
+						float: none;
+						width: auto;
+					}
+						.navigation.secondary label{
+							margin-right: 3em;
+							padding: 0.75em;
+						}
+						.navigation.secondary button{
+							margin-top: -3em;
+							padding: 0.75em;
+						}
+					.navigation.secondary ul{
+						padding: 0.75em;
+					}
+			/* it shouldn't be needed.. */
+			.header:after{
+				clear: both;
+				content: '';
+				display: table;
+			}
+			.body{
+				margin: 0;
+				padding: 0;
+				width: auto;
+			}
+				.section{
+					border-radius: 0;
+					padding: 0;
+				}
+					h2{
+						margin-bottom: 0;
+						margin-left: 0;
+						margin-top: 0;
+						padding: 0.75em;
+					}
+					h3{
+						border-radius: 0;
+					}
+					p + p{
+						margin-top: -1.5em;
+					}
+				.section ~ .section{
+					margin-top: 0;
+				}
+				.main{
+				}
+					.main.section{
+					}
+						.atAGlance{
+							font-weight: bold;
+							padding: 0;
+						}
+							.atAGlance div{
+							}
+								.atAGlance span{
+									padding: 0.75em;
+								}
+							.atAGlance div:first-child{
+								border-top-left-radius: 0;
+								border-top-right-radius: 0;
+							}
+							.atAGlance div:first-child + div + div{
+								border-bottom-left-radius: 0;
+								border-bottom-right-radius: 0;
+							}
+				.aside{
+					margin-top: 0;
+				}
+			.footer{
+				border-radius: 0;
+				margin-bottom: 0;
+				padding: 0;
+			}
+		.home{
+		}
+			.home .header{
+				padding: 0;
+			}
+			.home .body{
+				padding: 0;
+			}
+		
+}
+@import url(customizations.less);

@@ -1,0 +1,92 @@
+{#
+© Copyright 2016 Associazione di promozione sociale Redde Rationem
+
+This file was authored by:
+
+- Gianmarco Tuccini <gianmarcotuccini@redderationem.org>
+- Paolo Landi <paololandi@redderationem.org>
+- Marco Santini <marcosantini@redderationem.org>
+
+This file is part of BilancioCivico.
+
+BilancioCivico is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+BilancioCivico is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with BilancioCivico.  If not, see <http://www.gnu.org/licenses/>.
+
+Supplemental term under GNU Affero General Public License version 3 section 7
+
+You must retain the whole attribution (both the copyright line and the actual authors' list)
+#}
+{% extends 'customizations.html' %}
+{% import 'macros.html' as macros %}
+{% set pageTitle %}{{ cycleCode }} / Sezioni / {{ division.description }}{% endset %}
+{% block header %}
+<h1>{{ cycleCode }} / Sezioni / {{ division.description }}</h1>
+{{ parent() }}
+<div class="navigation secondary">
+	<form action="{{ cycleCode }}/sezioni.html">
+		<label><input name="match" placeholder="Cosa cerchi?"/></label>
+		<button type="submit">Cerca</button>
+	</form>
+	<ul>
+		<li><a href="{{ cycleCode }}/operazioni.html">Operazioni</a></li>
+		<li><a href="{{ cycleCode }}/capitoli.html">Capitoli</a></li>
+		<li><a href="{{ cycleCode }}/sezioni.html">Sezioni</a></li>
+		<li><a href="{{ cycleCode }}/atti.html">Atti</a></li>
+		<li><a href="{{ cycleCode }}/soggetti.html">Soggetti</a></li>
+	</ul>
+</div>
+{% endblock %}
+{% block body %}
+<div class="main">
+	<div class="section">
+		<h2>Dettaglio della sezione</h2>
+		<dl>
+			<dt>Categoria</dt>
+			<dd>{{ division.divisionTypeDescription }}</dd>
+			<dt>Codice</dt>
+			<dd>{{ division.code }}</dd>
+			<dt>Descrizione</dt>
+			<dd>{{ division.description }}</dd>
+			<dt>Preventivato</dt>
+			<dd>{{ macros.toAmount(division.amount) }}</dd>
+			<dt>Totale</dt>
+			<dd>{{ macros.toAmount(division.usedAmount) }}</dd>
+			<dt>Atti</dt>
+			<dd><a href="{{ cycleCode }}/atti.html?match=divisions: {{ division.code }}&operator={{ operator }}">Cerca</a></dd>
+			<dt>Capitoli</dt>
+			<dd><a href="{{ cycleCode }}/capitoli.html?match=divisions: {{ division.code }}&operator={{ operator }}">Cerca</a></dd>
+			<dt>Operazioni</dt>
+			<dd><a href="{{ cycleCode }}/operazioni.html?match=divisions: {{ division.code }}&operator={{ operator }}">Cerca</a></dd>
+			<dt>Soggetti</dt>
+			<dd><a href="{{ cycleCode }}/soggetti.html?match=divisions: {{ division.code }}&operator={{ operator }}">Cerca</a></dd>
+		</dl>
+	</div>
+</div>
+<div class="aside">
+	<div class="section">
+		<h2>Segnalazioni</h2>
+		<form action="contatti.html" method="post">
+			<input name="subject" type="hidden" value="Segnalazione sul soggetto '{{ division.description }}' (codice: {{ division.code }})"/>
+			<label>
+				<span>Recapito *</span>
+				<input name="contact" placeholder="Email, cellulare o telefono" required="required"/>
+			</label>
+			<label>
+				<span>Messaggio *</span>
+				<textarea name="message" placeholder="Quel che vuoi segnalarci" required="required"></textarea>
+			</label>
+			<button type="submit">Invia</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

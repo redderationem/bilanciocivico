@@ -1,0 +1,22 @@
+{
+	"autoload": {
+		"psr-4": {
+			"ReddeRationem\\BilancioCivico\\": "application/types/"
+		}
+	},
+	"config": {
+		"bin-dir": "library/bin",
+		"vendor-dir": "library"
+	},
+	"name": "redderationem/bilanciocivico",
+	"require": {
+		"filp/whoops": "~2",
+		"nikic/fast-route": "~1",
+		"oyejorge/less.php": "~1",
+		"rdlowrey/auryn": "~1",
+		"relay/relay": "~1",
+		"symfony/var-dumper": "~2",
+		"twig/twig": "~1",
+		"zendframework/zend-diactoros": "~1"
+	}
+}

@@ -1,0 +1,35 @@
+{% extends 'customizations.html' %}
+{% import 'macros.html' as macros %}
+{% set pageTitle %}Amministrazione / Riparazione{% endset %}
+{% block header %}
+<h1>Amministrazione / Riparazione</h1>
+{{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="main">
+	<div class="section">
+		<h2>Ripara il sito</h2>
+		<p>Se c'è qualcosa che non funziona (il sito non mostra gli ultimi aggiornamenti etc.) prova ad eseguire la riparazione automatica.</p>
+		<form enctype="multipart/form-data" method="post">
+			<label>
+				<span>Sei sicuro?</span>
+				<select name="confirmation" required="required">
+					<option value="">No</option>
+					<option value="1">Sì</option>
+				</select>
+			</label>
+			<button type="submit">Ripara</button>
+		</form>
+	</div>
+</div>
+<div class="aside">
+	<div class="section">
+		<h2>Funzionalità d'amministrazione</h2>
+		<ul class="menu">
+			<li><a href="amministrazione/configurazione.html">Configurazione</a></li>
+			<li><a href="amministrazione/importazione.html">Importazione</a></li>
+			<li><strong>Riparazione</strong></li>
+		</ul>
+	</div>
+</div>
+{% endblock %}

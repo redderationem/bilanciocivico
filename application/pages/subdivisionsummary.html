@@ -1,0 +1,65 @@
+{#
+© Copyright 2016 Associazione di promozione sociale Redde Rationem
+
+This file was authored by:
+
+- Gianmarco Tuccini <gianmarcotuccini@redderationem.org>
+- Paolo Landi <paololandi@redderationem.org>
+- Marco Santini <marcosantini@redderationem.org>
+
+This file is part of BilancioCivico.
+
+BilancioCivico is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+BilancioCivico is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with BilancioCivico.  If not, see <http://www.gnu.org/licenses/>.
+
+Supplemental term under GNU Affero General Public License version 3 section 7
+
+You must retain the whole attribution (both the copyright line and the actual authors' list)
+#}
+{% extends 'customizations.html' %}
+{% import 'macros.html' as macros %}
+{% set pageTitle %}{{ cycleCode }} / Capitoli{% endset %}
+{% block header %}
+<h1>{{ cycleCode }} / Capitoli</h1>
+{{ parent() }}
+<div class="navigation secondary">
+	<form>
+		<label><input name="match" placeholder="Cosa cerchi?"/></label>
+		<button type="submit">Cerca</button>
+	</form>
+	<ul>
+		<li><a href="{{ cycleCode }}/operazioni.html">Operazioni</a></li>
+		<li><strong>Capitoli</strong></li>
+		<li><a href="{{ cycleCode }}/sezioni.html">Sezioni</a></li>
+		<li><a href="{{ cycleCode }}/atti.html">Atti</a></li>
+		<li><a href="{{ cycleCode }}/soggetti.html">Soggetti</a></li>
+	</ul>
+</div>
+{% endblock %}
+{% block body %}
+<div class="main">
+	<div class="section">
+		<h2>I capitoli del bilancio</h2>
+		<p>Le entrate e spese del bilancio sono suddivise e dettagliate in capitoli, che vengono definiti dall'ente con PEG, il piano esegutivo di gesione. I capitoli identificano concretamente — ed in maniera più dettagliata rispetto alle sezioni del bilancio — la tipologia di ciascuna entrata o spesa e la loro provenienza. I capitoli sono suddivisi tra capitoli di entrata e di spesa, e ad ogni capitolo è associato un codice univoco. Ogni capitolo è collegato ad una precisa sezione del bilancio. Per ogni capitolo viene inoltre definito lo stanziamento ovvero l'ammontare dell'entrata o della spesa prevista. Dalla consultazione dei capitoli il cittadino può evincere da quali fonti ed in quale misura l'ente prevede di reperire risorse e dove prevede di utilizzarle.</p>
+	</div>
+</div>
+<div class="aside">
+	<div class="section">
+		<h2>Elenchi completi</h2>
+		<ul class="menu">
+			<li><a href="{{ cycleCode }}/capitoli.html?match=Mostra tutto&operator=&gt;">Entrate per totale decrescente</a></li>
+			<li><a href="{{ cycleCode }}/capitoli.html?match=Mostra tutto">Spese per totale decrescente</a></li>
+		</ul>
+	</div>
+</div>
+{% endblock %}

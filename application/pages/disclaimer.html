@@ -1,0 +1,66 @@
+{#
+© Copyright 2016 Associazione di promozione sociale Redde Rationem
+
+This file was authored by:
+
+- Gianmarco Tuccini <gianmarcotuccini@redderationem.org>
+- Paolo Landi <paololandi@redderationem.org>
+- Marco Santini <marcosantini@redderationem.org>
+
+This file is part of BilancioCivico.
+
+BilancioCivico is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+BilancioCivico is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with BilancioCivico.  If not, see <http://www.gnu.org/licenses/>.
+
+Supplemental term under GNU Affero General Public License version 3 section 7
+
+You must retain the whole attribution (both the copyright line and the actual authors' list)
+#}
+{% extends 'customizations.html' %}
+{% import 'macros.html' as macros %}
+{% set pageTitle %}Nota sui dati{% endset %}
+{% block header %}
+<h1>Nota sui dati</h1>
+{{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="main">
+	<div class="section">
+		<h2>I dati sul sito</h2>
+		<p>Il sito {{ siteTitle }} è sviluppato e gestito da: {{ siteManager }}. Il sito non è in alcun modo legato all'amministrazione comunale e non è pertanto un sito ufficiale del Comune di {{ municipality }}.</p>
+		<p>Il sito e l'immissione dei dati sono sotto la responsabilità di: {{ dataManager }}.</p>
+		<p>I dati riportati sono accurati al meglio. Non può però esserne garantita la completa accuratezza.</p>
+		<p>Non ci assumiamo quindi nessuna responsabilità in merito ai dati, per i quali si rimanda ai canali ufficiali del Comune di {{ municipality }} per ulteriori approfondimenti.</p>
+		<p>Non sono stati introdotti i dati relativi alla vita personale delle persone, concernenti dati sensibili, sensibilissimi, giudiziari, quelli dal quale si possa desumere lo stato di salute, la vita sessuale e più in generale la vita personale delle persone.</p>
+		<p>È stata posta in essere molta cura nella immissione dei dati. Nel caso qualcosa ci fosse sfuggito o ritenete opportuno che qualche informazione non possa essere pubblicata, Vi invitiamo a segnalarcelo tempestivamente tramite l'apposito form che trovate nei dettagli di ogni atto oppure tramite la pagina dei contatti.</p>
+		<p>Grazie!</p>
+	</div>
+</div>
+<div class="aside">
+	<div class="section">
+		<h2>Segnalazioni</h2>
+		<form action="contatti.html" method="post">
+			<input name="subject" type="hidden" value="Segnalazione sui dati"/>
+			<label>
+				<span>Recapito *</span>
+				<input name="contact" placeholder="Email, cellulare o telefono" required="required"/>
+			</label>
+			<label>
+				<span>Messaggio *</span>
+				<textarea name="message" placeholder="Quel che vuoi segnalarci" required="required"></textarea>
+			</label>
+			<button type="submit">Invia</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
