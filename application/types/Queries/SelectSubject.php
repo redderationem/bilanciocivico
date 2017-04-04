@@ -42,20 +42,21 @@ class SelectSubject{
 			throw new Exception('Invalid $arguments');
 		}
 		$code = $arguments['code'];
+		if (!isset($arguments['cycleCode']) || !is_int($arguments['cycleCode'])){
+			throw new Exception('Invalid $arguments');
+		}
+		$cycleCode = $arguments['cycleCode'];
 		$sql = <<<SQL
 		SELECT 
 			"denormalizedSubjects".*, 
-			ABS(COALESCE("denormalizedTransactions"."amount", 0)) AS "amount",
-			COUNT("denormalizedTransactions"."id") AS "count"
+			ABS("denormalizedSubjects"."amount") AS "amount"
 		FROM "denormalizedSubjects"
-		LEFT JOIN "denormalizedTransactions" ON "denormalizedTransactions"."subjectId" = "denormalizedSubjects"."id"
-		WHERE "denormalizedSubjects"."code" = ?
-		GROUP BY "denormalizedSubjects"."id"
+		WHERE "denormalizedSubjects"."code" = ? AND "denormalizedSubjects"."cycleCode" = ?
 		LIMIT 1
 		OFFSET 0
 SQL;
 		$statement = $this->pdo->prepare($sql);
-		$statement->execute([$code]);
+		$statement->execute([$code, $cycleCode]);
 		$subject = null;
 		foreach ($statement->fetchAll() as $v){
 			$subject = $v;
