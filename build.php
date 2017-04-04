@@ -37,6 +37,7 @@ $stub = <<<'STUB'
 declare(strict_types=1);
 use \Auryn\Injector;
 use \ReddeRationem\BilancioCivico\Application;
+date_default_timezone_set('Europe/Rome');
 include 'phar://application.phar/library/autoload.php';
 $application = new Application();
 $application->run(
