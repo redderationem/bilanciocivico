@@ -47,6 +47,13 @@
 				<span>Password utente *</span>
 				<input name="password" pattern=".{5,}" required="required" type="password"/>
 			</label>
+			<label>
+				<span>In sviluppo *</span>
+				<select name="debug" required="required">
+					<option {% if debug %}selected="selected"{% endif %} value="true">Sì</option>
+					<option {% if not debug %}selected="selected"{% endif %} value="false">No</option>
+				</select>
+			</label>
 			<button type="submit">Configura</button>
 		</form>
 	</div>
