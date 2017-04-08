@@ -33,16 +33,16 @@ You must retain the whole attribution (both the copyright line and the actual au
 <h1>{{ cycleCode }} / Operazione / {{ transaction.description }}</h1>
 {{ parent() }}
 <div class="navigation secondary">
-	<form action="{{ cycleCode }}/operazioni.html">
+	<form action="{{ cycleCode|url_encode|double_encode_slashes }}/operazioni.html">
 		<label><input name="match" placeholder="Cosa cerchi?"/></label>
 		<button type="submit">Cerca</button>
 	</form>
 	<ul>
-		<li><a href="{{ cycleCode }}/operazioni.html">Operazioni</a></li>
-		<li><a href="{{ cycleCode }}/capitoli.html">Capitoli</a></li>
-		<li><a href="{{ cycleCode }}/sezioni.html">Sezioni</a></li>
-		<li><a href="{{ cycleCode }}/atti.html">Atti</a></li>
-		<li><a href="{{ cycleCode }}/soggetti.html">Soggetti</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/operazioni.html">Operazioni</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/capitoli.html">Capitoli</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html">Sezioni</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/atti.html">Atti</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/soggetti.html">Soggetti</a></li>
 	</ul>
 </div>
 {% endblock %}
@@ -71,19 +71,19 @@ You must retain the whole attribution (both the copyright line and the actual au
 			<dd>{{ macros.toAmount(transaction.amount) }}</dd>
 			{% if transaction.actId %}
 			<dt>Atto</dt>
-			<dd><a href="{{ cycleCode }}/atti/{{ transaction.actCode }}.html">{{ transaction.actDescription }}</a></dd>
+			<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/atti/{{ transaction.actCode|url_encode|double_encode_slashes }}.html">{{ transaction.actDescription }}</a></dd>
 			{% endif %}
 			{% if transaction.subdivisionId %}
 			<dt>Capitolo</dt>
-			<dd><a href="{{ cycleCode }}/capitoli/{{ transaction.subdivisionCode }}.html">{{ transaction.subdivisionDescription }}</a></dd>
+			<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/capitoli/{{ transaction.subdivisionCode|url_encode|double_encode_slashes }}.html">{{ transaction.subdivisionDescription }}</a></dd>
 			{% endif %}
 			{% if transaction.divisionId %}
 			<dt>Sezione</dt>
-			<dd><a href="{{ cycleCode }}/sezioni/{{ transaction.divisionCode }}.html">{{ transaction.divisionDescription }}</a></dd>
+			<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni/{{ transaction.divisionCode|url_encode|double_encode_slashes }}.html">{{ transaction.divisionDescription }}</a></dd>
 			{% endif %}
 			{% if transaction.subjectId %}
 			<dt>Soggetto</dt>
-			<dd><a href="{{ cycleCode }}/soggetti/{{ transaction.subjectCode }}.html">{{ transaction.subjectName }}</a></dd>
+			<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/soggetti/{{ transaction.subjectCode|url_encode|double_encode_slashes }}.html">{{ transaction.subjectName }}</a></dd>
 			{% endif %}
 		</dl>
 	</div>

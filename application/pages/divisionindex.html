@@ -35,7 +35,7 @@ You must retain the whole attribution (both the copyright line and the actual au
 <ul class="list">
 	{% for v in rows %}
 	<li>
-		<a href="{{ cycleCode }}/sezioni/{{ v.code }}.html">{{ v.description }}</a>
+		<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni/{{ v.code|url_encode|double_encode_slashes }}.html">{{ v.description }}</a>
 		<div class="sparkline">
 			<div style="width: {{ v.amountPercent }}%"></div>
 			<div style="width: {{ v.usedAmountPercent }}%"></div>
@@ -63,13 +63,13 @@ You must retain the whole attribution (both the copyright line and the actual au
 				<dt>Totale preventivato</dt>
 				<dd>{{ macros.toAmount(v.amount) }} ({{ macros.toPercent(v.amountPercent) }}% della sezione superiore)</dd>
 				<dt>Atti</dt>
-				<dd><a href="{{ cycleCode }}/atti.html?match=divisions: {{ v.code }}">Cerca</a></dd>
+				<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/atti.html?match=divisions: {{ v.code }}">Cerca</a></dd>
 				<dt>Capitoli</dt>
-				<dd><a href="{{ cycleCode }}/capitoli.html?match=divisions: {{ v.code }}">Cerca</a></dd>
+				<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/capitoli.html?match=divisions: {{ v.code }}">Cerca</a></dd>
 				<dt>Operazioni</dt>
-				<dd><a href="{{ cycleCode }}/operazioni.html?match=divisions: {{ v.code }}">Cerca</a></dd>
+				<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/operazioni.html?match=divisions: {{ v.code }}">Cerca</a></dd>
 				<dt>Soggetti</dt>
-				<dd><a href="{{ cycleCode }}/soggetti.html?match=divisions: {{ v.code }}">Cerca</a></dd>
+				<dd><a href="{{ cycleCode|url_encode|double_encode_slashes }}/soggetti.html?match=divisions: {{ v.code }}">Cerca</a></dd>
 			</dl>
 		</div>
 		{% if v.rows %}
@@ -98,11 +98,11 @@ You must retain the whole attribution (both the copyright line and the actual au
 		<button type="submit">Cerca</button>
 	</form>
 	<ul>
-		<li><a href="{{ cycleCode }}/operazioni.html?match={{ match }}&operator={{ operator }}">Operazioni</a></li>
-		<li><a href="{{ cycleCode }}/capitoli.html?match={{ match }}&operator={{ operator }}">Capitoli</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/operazioni.html?{{ {'match': match, 'operator': operator}|url_encode|double_encode_slashes }}">Operazioni</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/capitoli.html?{{ {'match': match, 'operator': operator}|url_encode|double_encode_slashes }}">Capitoli</a></li>
 		<li><strong>Sezioni</strong></li>
-		<li><a href="{{ cycleCode }}/atti.html?match={{ match }}&operator={{ operator }}">Atti</a></li>
-		<li><a href="{{ cycleCode }}/soggetti.html?match={{ match }}&operator={{ operator }}">Soggetti</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/atti.html?{{ {'match': match, 'operator': operator}|url_encode|double_encode_slashes }}">Atti</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/soggetti.html?{{ {'match': match, 'operator': operator}|url_encode|double_encode_slashes }}">Soggetti</a></li>
 	</ul>
 </div>
 {% endblock %}
@@ -123,12 +123,12 @@ You must retain the whole attribution (both the copyright line and the actual au
 			<p>{{ offset + 1 }}–{{ divisions.count > offset + limit ? offset + limit : divisions.count }} di {{ divisions.count }}</p>
 			<ul>
 				{% if offset > 0 %}
-				<li><a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode }}" title="Prima pagina">&lt;&lt;</a></li>
-				<li><a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': offset - limit}|url_encode }}" title="Pagina precedente">&lt;</a></li>
+				<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}" title="Prima pagina">&lt;&lt;</a></li>
+				<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': offset - limit}|url_encode|double_encode_slashes }}" title="Pagina precedente">&lt;</a></li>
 				{% endif %}
 				{% if offset + limit < divisions.count %}
-				<li><a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': offset + limit}|url_encode }}" title="Prossima pagina">&gt;</a></li>
-				<li><a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': divisions.count - limit}|url_encode }}" title="Ultima pagina">&gt;&gt;</a></li>
+				<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': offset + limit}|url_encode|double_encode_slashes }}" title="Prossima pagina">&gt;</a></li>
+				<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': divisions.count - limit}|url_encode|double_encode_slashes }}" title="Ultima pagina">&gt;&gt;</a></li>
 				{% endif %}
 			</ul>
 		</div>
@@ -148,14 +148,14 @@ You must retain the whole attribution (both the copyright line and the actual au
 				{% if operator == '>' %}
 				<strong>Le entrate</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': 0, 'operator': '>'}|url_encode }}">Le entrate</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': 0, 'operator': '>'}|url_encode|double_encode_slashes }}">Le entrate</a>
 				{% endif %}
 			</li>
 			<li>
 				{% if operator == '<' %}
 				<strong>Le spese</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': 0, 'operator': '<'}|url_encode }}">Le spese</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': limit, 'match': match, 'offset': 0, 'operator': '<'}|url_encode|double_encode_slashes }}">Le spese</a>
 				{% endif %}
 			</li>
 		</ul>
@@ -165,28 +165,28 @@ You must retain the whole attribution (both the copyright line and the actual au
 				{% if by == 'code' %}
 				<strong>Per codice</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': 'code', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode }}">Per codice</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': 'code', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">Per codice</a>
 				{% endif %}
 			</li>
 			<li>
 				{% if by == 'description' %}
 				<strong>Per descrizione</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': 'description', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode }}">Per descrizione</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': 'description', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">Per descrizione</a>
 				{% endif %}
 			</li>
 			<li>
 				{% if by == 'usedAmount' %}
 				<strong>Per totale</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': 'usedAmount', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode }}">Per totale</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': 'usedAmount', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">Per totale</a>
 				{% endif %}
 			</li>
 			<li>
 				{% if by == 'amount' %}
 				<strong>Per totale preventivato</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': 'amount', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode }}">Per totale preventivato</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': 'amount', 'direction': direction, 'limit': limit, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">Per totale preventivato</a>
 				{% endif %}
 			</li>
 		</ul>
@@ -196,14 +196,14 @@ You must retain the whole attribution (both the copyright line and the actual au
 				{% if direction == 'ASC' %}
 				<strong>Crescente</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': 'ASC', 'limit': limit, 'match': match, 'offset': 0}|url_encode }}">Crescente</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': 'ASC', 'limit': limit, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">Crescente</a>
 				{% endif %}
 			</li>
 			<li>
 				{% if direction == 'DESC' %}
 				<strong>Decrescente</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': 'DESC', 'limit': limit, 'match': match, 'offset': 0}|url_encode }}">Decrescente</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': 'DESC', 'limit': limit, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">Decrescente</a>
 				{% endif %}
 			</li>
 		</ul>
@@ -214,21 +214,21 @@ You must retain the whole attribution (both the copyright line and the actual au
 				{% if limit == 25 %}
 				<strong>25</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': 25, 'match': match, 'offset': 0}|url_encode }}">25</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': 25, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">25</a>
 				{% endif %}
 			</li>
 			<li>
 				{% if limit == 50 %}
 				<strong>50</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': 50, 'match': match, 'offset': 0}|url_encode }}">50</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': 50, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">50</a>
 				{% endif %}
 			</li>
 			<li>
 				{% if limit == 100 %}
 				<strong>100</strong>
 				{% else %}
-				<a href="{{ cycleCode }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': 100, 'match': match, 'offset': 0}|url_encode }}">100</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?{{ {'by': by, 'direction': direction, 'limit': 100, 'match': match, 'offset': 0}|url_encode|double_encode_slashes }}">100</a>
 				{% endif %}
 			</li>
 		</ul>

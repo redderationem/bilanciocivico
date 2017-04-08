@@ -34,7 +34,7 @@ You must retain the whole attribution (both the copyright line and the actual au
 <h1><img src="images/logo120.png"/>{{ siteTitle }}</h1>
 {{ parent() }}
 <div class="navigation secondary home">
-	<form action="{{ cycleCode }}/operazioni.html">
+	<form action="{{ cycleCode|url_encode|double_encode_slashes }}/operazioni.html">
 		<label><input name="match" placeholder="Cosa cerchi?"/></label>
 		<button type="submit">Cerca</button>
 	</form>
@@ -55,7 +55,7 @@ You must retain the whole attribution (both the copyright line and the actual au
 		<ul class="list">
 			{% for v in divisionsAtAGlance.inRows %}
 			<li>
-				<a href="{{ cycleCode }}/sezioni.html?match=&quot;{{ v.description }}&quot;&operator=>">{{ v.description }}</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?match=&quot;{{ v.description }}&quot;&operator=>">{{ v.description }}</a>
 				<div class="sparkline">
 					<div style="width: {{ v.amountPercent }}%"></div>
 					<div style="width: {{ v.usedAmountPercent }}%"></div>
@@ -85,7 +85,7 @@ You must retain the whole attribution (both the copyright line and the actual au
 		<ul class="list">
 			{% for v in divisionsAtAGlance.outRows %}
 			<li>
-				<a href="{{ cycleCode }}/sezioni.html?match=&quot;{{ v.description }}&quot;">{{ v.description }}</a>
+				<a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html?match=&quot;{{ v.description }}&quot;">{{ v.description }}</a>
 				<div class="sparkline">
 					<div style="width: {{ v.amountPercent }}%"></div>
 					<div style="width: {{ v.usedAmountPercent }}%"></div>

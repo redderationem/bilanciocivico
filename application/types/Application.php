@@ -37,6 +37,7 @@ use \Less_Parser as Parser;
 use \Pdo;
 use \Phar;
 use \Twig_Environment as Environment;
+use \Twig_SimpleFilter as SimpleFilter;
 use \Whoops\Run;
 use const \PHP_URL_HOST;
 use const \PHP_URL_PATH;
@@ -186,6 +187,12 @@ SQL;
 		$injector->prepare(
 			'Twig_Environment',
 			function (Environment $environment) use ($configuration){
+				$environment->addFilter(new SimpleFilter(
+					'double_encode_slashes',
+					function ($value){
+						return str_replace('%2F', '%252F', $value);
+					}
+				));
 				foreach ($configuration as $k => $v){
 					$environment->addGlobal($k, $v);
 				}

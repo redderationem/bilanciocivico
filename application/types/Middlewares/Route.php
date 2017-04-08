@@ -45,7 +45,7 @@ class Route{
 		$dispatch = $this->dispatcher->dispatch($request->getMethod(), parse_url($request->getRequestTarget(), PHP_URL_PATH));
 		if ($dispatch[0] == $this->dispatcher::FOUND){
 			foreach ($dispatch[2] as $k => $v){
-				$request = $request->withAttribute($k, $v);
+				$request = $request->withAttribute($k, rawurldecode(str_replace('%252F', '%2F', $v)));
 			}
 			return ($this->relayBuilder->newInstance($dispatch[1]))($request, $next($request, $response));
 		}

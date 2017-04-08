@@ -37,6 +37,7 @@ class Cache{
 		$this->directory = $directory;
 	}
 	public function __invoke(Request $request, Response $response, callable $next) : Response{
+		return $next($request, $response);
 		$directory = $this->directory . '/' . md5($request->getRequestTarget());
 		if (file_exists($directory)){
 			list($headers, $status) = include $directory . '/headersandstatus.php';

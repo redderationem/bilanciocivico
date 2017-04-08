@@ -39,10 +39,10 @@ You must retain the whole attribution (both the copyright line and the actual au
 	</form>
 	<ul>
 		<li><strong>Operazioni</strong></li>
-		<li><a href="{{ cycleCode }}/capitoli.html">Capitoli</a></li>
-		<li><a href="{{ cycleCode }}/sezioni.html">Sezioni</a></li>
-		<li><a href="{{ cycleCode }}/atti.html">Atti</a></li>
-		<li><a href="{{ cycleCode }}/soggetti.html">Soggetti</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/capitoli.html">Capitoli</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/sezioni.html">Sezioni</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/atti.html">Atti</a></li>
+		<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/soggetti.html">Soggetti</a></li>
 	</ul>
 </div>
 {% endblock %}
@@ -61,8 +61,8 @@ You must retain the whole attribution (both the copyright line and the actual au
 	<div class="section">
 		<h2>Elenchi completi</h2>
 		<ul class="menu">
-			<li><a href="{{ cycleCode }}/operazioni.html?match=Mostra tutto&operator=&gt;">Entrate per totale decrescente</a></li>
-			<li><a href="{{ cycleCode }}/operazioni.html?match=Mostra tutto">Spese per totale decrescente</a></li>
+			<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/operazioni.html?match=Mostra tutto&operator=&gt;">Entrate per totale decrescente</a></li>
+			<li><a href="{{ cycleCode|url_encode|double_encode_slashes }}/operazioni.html?match=Mostra tutto">Spese per totale decrescente</a></li>
 		</ul>
 	</div>
 </div>
