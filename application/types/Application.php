@@ -37,6 +37,7 @@ use \Less_Parser as Parser;
 use \Pdo;
 use \Phar;
 use \Twig_Environment as Environment;
+use \Twig_SimpleFilter as SimpleFilter;
 use \Whoops\Run;
 use const \PHP_URL_HOST;
 use const \PHP_URL_PATH;
@@ -49,6 +50,7 @@ class Application{
 			'cacheDirectory' => $baseDirectory . '/cache',
 			'databaseFile' => $baseDirectory . '/data.sqlite',
 			'dataManager' => '[Responsabile/i dei dati]',
+			'debug' => true,
 			'defaultCycleCode' => date('Y'),
 			'email' => 'contatti@' . parse_url($baseUrl, PHP_URL_HOST),
 			'imageDirectory' => $baseDirectory,
@@ -148,27 +150,29 @@ class Application{
 			'FastRoute\\RouteCollector',
 			function (RouteCollector $routeCollector) use ($configuration){
 				$basePath = rtrim(parse_url($configuration['baseUrl'], PHP_URL_PATH), '/') . '/';
-				$routeCollector->addRoute('GET', $basePath, ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetHomeAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/atti/{code}.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetActAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/atti.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetActsAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/capitoli/{code}.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetSubdivisionAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/capitoli.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetSubdivisionsAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/sezioni/{code}.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetDivisionAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/sezioni.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetDivisionsAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/soggetti/{code}.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetSubjectAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/soggetti.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetSubjectsAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/operazioni/{code}.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetTransactionAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/operazioni.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetTransactionsAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . 'contatti.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetContactsAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . 'images/{name}.jpg', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetImageAsJpg']);
-				$routeCollector->addRoute('GET', $basePath . 'images/{name}.png', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetImageAsPng']);
-				$routeCollector->addRoute('GET', $basePath . 'nota-sui-dati.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetDisclaimerAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . 'progetto.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetIntroductionAsHtml']);
+				$authenticateMiddleware = $configuration['debug'] ? ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate'] : [];
+				$cacheMiddleware = $configuration['debug'] ? [] : ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache'];
+				$routeCollector->addRoute('GET', $basePath, array_merge($cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetHomeAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/atti/{code}.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetActAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/atti.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetActsAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/capitoli/{code}.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetSubdivisionAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/capitoli.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetSubdivisionsAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/sezioni/{code}.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetDivisionAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/sezioni.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetDivisionsAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/soggetti/{code}.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetSubjectAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/soggetti.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetSubjectsAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/operazioni/{code}.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetTransactionAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/operazioni.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetTransactionsAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . 'contatti.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetContactsAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . 'images/{name}.jpg', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetImageAsJpg']));
+				$routeCollector->addRoute('GET', $basePath . 'images/{name}.png', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetImageAsPng']));
+				$routeCollector->addRoute('GET', $basePath . 'nota-sui-dati.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetDisclaimerAsHtml']));
+				$routeCollector->addRoute('GET', $basePath . 'progetto.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetIntroductionAsHtml']));
 				$routeCollector->addRoute('GET', $basePath . 'amministrazione/configurazione.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetConfigurationAsHtml']);
 				$routeCollector->addRoute('GET', $basePath . 'amministrazione/importazione.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetImportationAsHtml']);
 				$routeCollector->addRoute('GET', $basePath . 'amministrazione/riparazione.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetReparationAsHtml']);
-				$routeCollector->addRoute('GET', $basePath . 'stylesheets/{name}.css', ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache', 'ReddeRationem\\BilancioCivico\\Middlewares\\GetStylesheetAsCss']);
-				$routeCollector->addRoute('POST', $basePath . 'contatti.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\PostToContacts']);
+				$routeCollector->addRoute('GET', $basePath . 'stylesheets/{name}.css', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetStylesheetAsCss']));
+				$routeCollector->addRoute('POST', $basePath . 'contatti.html', array_merge($authenticateMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\PostToContacts']));
 				$routeCollector->addRoute('POST', $basePath . 'amministrazione/configurazione.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate', 'ReddeRationem\\BilancioCivico\\Middlewares\\PostToConfiguration']);
 				$routeCollector->addRoute('POST', $basePath . 'amministrazione/importazione.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate', 'ReddeRationem\\BilancioCivico\\Middlewares\\PostToImportation']);
 				$routeCollector->addRoute('POST', $basePath . 'amministrazione/riparazione.html', ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate', 'ReddeRationem\\BilancioCivico\\Middlewares\\PostToReparation']);
@@ -186,6 +190,12 @@ SQL;
 		$injector->prepare(
 			'Twig_Environment',
 			function (Environment $environment) use ($configuration){
+				$environment->addFilter(new SimpleFilter(
+					'double_encode_slashes',
+					function ($value){
+						return str_replace('%2F', '%252F', $value);
+					}
+				));
 				foreach ($configuration as $k => $v){
 					$environment->addGlobal($k, $v);
 				}

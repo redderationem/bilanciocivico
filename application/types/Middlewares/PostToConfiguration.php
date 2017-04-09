@@ -45,6 +45,7 @@ class PostToConfiguration{
 		$parsedBody = $request->getParsedBody();
 		$arguments = [
 			'dataManager' => $parsedBody['dataManager'],
+			'debug' => $parsedBody['debug'] === 'true',
 			'defaultCycleCode' => (int)$parsedBody['defaultCycleCode'],
 			'email' => $parsedBody['email'],
 			'municipality' => $parsedBody['municipality'],
