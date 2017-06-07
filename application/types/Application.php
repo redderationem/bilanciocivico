@@ -152,7 +152,7 @@ class Application{
 				$basePath = rtrim(parse_url($configuration['baseUrl'], PHP_URL_PATH), '/') . '/';
 				$authenticateMiddleware = $configuration['debug'] ? ['ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate'] : [];
 				$cacheMiddleware = $configuration['debug'] ? [] : ['ReddeRationem\\BilancioCivico\\Middlewares\\Cache'];
-				$routeCollector->addRoute('GET', $basePath, array_merge($cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetHomeAsHtml']));
+				$routeCollector->addRoute('GET', $basePath, array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetHomeAsHtml']));
 				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/atti/{code}.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetActAsHtml']));
 				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/atti.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetActsAsHtml']));
 				$routeCollector->addRoute('GET', $basePath . '{cycleCode}/capitoli/{code}.html', array_merge($authenticateMiddleware, $cacheMiddleware, ['ReddeRationem\\BilancioCivico\\Middlewares\\GetSubdivisionAsHtml']));
