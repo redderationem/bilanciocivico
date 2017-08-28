@@ -48,7 +48,7 @@ class SelectDivisionsAtAGlance{
 		WHERE 
 			"denormalizedDivisions"."cycleCode" = ? 
 			AND
-			"denormalizedDivisions"."divisionTypeCode" = 'U'
+			"denormalizedDivisions"."divisionTypeCode" IN ('uscite', 'U')
 		LIMIT 1
 		OFFSET 0
 SQL;
@@ -69,7 +69,7 @@ SQL;
 		WHERE 
 			"denormalizedDivisions"."cycleCode" = ? 
 			AND
-			"denormalizedDivisions"."divisionTypeCode" = 'T'
+			"denormalizedDivisions"."divisionTypeCode" IN ('titoloentrate', 'T')
 			AND
 			"denormalizedDivisions"."amount" > 0
 		ORDER BY "denormalizedDivisions"."amount" DESC
@@ -94,7 +94,7 @@ SQL;
 		WHERE 
 			"denormalizedDivisions"."cycleCode" = ? 
 			AND
-			"denormalizedDivisions"."divisionTypeCode" = 'F'
+			"denormalizedDivisions"."divisionTypeCode" IN ('missione', 'F')
 			AND
 			"denormalizedDivisions"."amount" < 0
 		GROUP BY "denormalizedDivisions"."description"

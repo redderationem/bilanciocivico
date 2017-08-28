@@ -40,7 +40,7 @@ class GetHomeAsHtml{
 	private $selectAtAGlance = null;
 	private $selectDivisionsAtAGlance = null;
 	public function __construct(string $cycleCode, Environment $environment, SelectAtAGlance $selectAtAGlance, SelectDivisionsAtAGlance $selectDivisionsAtAGlance){
-		$this->cycleCode = (int)$this->cycleCode;
+		$this->cycleCode = (int)cycleCode;
 		$this->environment = $environment;
 		$this->selectAtAGlance = $selectAtAGlance;
 		$this->selectDivisionsAtAGlance = $selectDivisionsAtAGlance;

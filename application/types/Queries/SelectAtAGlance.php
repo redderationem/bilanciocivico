@@ -48,7 +48,7 @@ class SelectAtAGlance{
 			ABS("denormalizedDivisions"."amount") AS "amount", 
 			ABS("denormalizedDivisions"."usedAmount") AS "usedAmount"
 		FROM "denormalizedDivisions" 
-		WHERE "denormalizedDivisions"."cycleCode" = ? AND "denormalizedDivisions"."divisionTypeCode" IN ('E', 'U')
+		WHERE "denormalizedDivisions"."cycleCode" = ? AND "denormalizedDivisions"."divisionTypeCode" IN ('entrate', 'E', 'uscite', 'U')
 SQL;
 		$amount = null;
 		$inUsedAmount = null;
@@ -56,7 +56,7 @@ SQL;
 		$statement = $this->pdo->prepare($sql);
 		$statement->execute([$cycleCode]);
 		foreach ($statement as $v){
-			if ($v['divisionTypeCode'] == 'E'){
+			if (in_array($v['divisionTypeCode'], ['entrate', 'E'])){
 				$inUsedAmount = $v['usedAmount'];
 			}
 			else {
