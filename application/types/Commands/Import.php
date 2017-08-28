@@ -538,7 +538,7 @@ SQL;
 				$this->xmlReader->moveToElement();
 				switch ($this->xmlReader->localName){
 					case 'actCycle':
-						$importActCycle->execute([$attributes['actCode'], $attributes['actCode'], $attributes['cycleCode'], $attributes['cycleCode']]);
+						$importActCycle->execute([$attributes['actCode'], $attributes['cycleCode'], $attributes['actCode'], $attributes['cycleCode']]);
 						break;
 					case 'actDivision':
 						$importActDivision->execute([$attributes['actCode'], $attributes['actCode'], $attributes['divisionCode'], $attributes['divisionCode']]);
