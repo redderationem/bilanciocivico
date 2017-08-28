@@ -489,7 +489,7 @@ SQL;
 						if (isset($attributes['amount']) && strlen($attributes['amount'])){
 							$importAmount->execute([$attributes['amount'], $attributes['code'], $attributes['code']]);
 						}
-						if (strlen($attributes['divisionCode']) && strlen($attributes['divisionCode'])){
+						if (isset($attributes['divisionCode']) && strlen($attributes['divisionCode'])){
 							$importDivisionSubdivision->execute([$attributes['divisionCode'], $attributes['divisionCode'], $attributes['code'], $attributes['code']]);
 						}
 						break;
@@ -498,7 +498,7 @@ SQL;
 						foreach (explode(' ', $attributes['cycleCodes']) as $vv){
 							$importCycleSubject->execute([$vv, $vv, $attributes['code'], $attributes['code']]);
 						}
-						if (strlen($attributes['taxCode']) && strlen($attributes['taxCode'])){
+						if (isset($attributes['taxCode']) && strlen($attributes['taxCode'])){
 							$importTaxCode->execute([$attributes['taxCode'], $attributes['taxCode'], $attributes['code']]);
 						}
 						if (isset($attributes['vatNumber']) && strlen($attributes['vatNumber'])){
