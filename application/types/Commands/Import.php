@@ -487,7 +487,7 @@ SQL;
 					case 'subdivision':
 						$importSubdivision->execute([$attributes['code'], $attributes['cycleCode'], $attributes['description'], $attributes['code'], $attributes['subdivisionTypeCode']]);
 						if (isset($attributes['amount']) && strlen($attributes['amount'])){
-							$importAmount->execute([(int)$attributes['amount'], $attributes['code'], $attributes['code']]);
+							$importAmount->execute([$attributes['amount'], $attributes['code'], $attributes['code']]);
 						}
 						if (strlen($attributes['divisionCode']) && strlen($attributes['divisionCode'])){
 							$importDivisionSubdivision->execute([$attributes['divisionCode'], $attributes['divisionCode'], $attributes['code'], $attributes['code']]);
@@ -506,7 +506,7 @@ SQL;
 						}
 						break;
 					case 'transaction':
-						$importTransaction->execute([(int)$attributes['amount'], $attributes['code'], $attributes['cycleCode'], $attributes['date'], $attributes['description'], $attributes['code'], $attributes['transactionTypeCode']]);
+						$importTransaction->execute([$attributes['amount'], $attributes['code'], $attributes['cycleCode'], $attributes['date'], $attributes['description'], $attributes['code'], $attributes['transactionTypeCode']]);
 						if (isset($attributes['cigCode']) && strlen($attributes['cigCode'])){
 							$importCigCodeTransaction->execute([$attributes['cigCode'], $attributes['cigCode'], $attributes['code'], $attributes['code']]);
 						}
