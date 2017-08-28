@@ -112,6 +112,7 @@ class Application{
 		$injector->define('ReddeRationem\\BilancioCivico\\Commands\\Mail', [':email' => $configuration['email']]);
 		$injector->define('ReddeRationem\\BilancioCivico\\Middlewares\\Authenticate', [':password' => $configuration['password'], ':user' => $configuration['user']]);
 		$injector->define('ReddeRationem\\BilancioCivico\\Middlewares\\Cache', [':directory' => $configuration['cacheDirectory']]);
+		$injector->define('ReddeRationem\\BilancioCivico\\Middlewares\\GetHomeAsHtml', [':cycleCode' => $configuration['defaultCycleCode']]);
 		$injector->define(
 			'ReddeRationem\\BilancioCivico\\Middlewares\\GetImageAsJpg', 
 			[':directories' => [$configuration['imageDirectory'], __DIR__ . '/../images']]
