@@ -99,7 +99,7 @@ class SelectDivisions{
 			AND
 			"denormalizedDivisions"."cycleCode" = ?
 			AND
-			"code" LIKE '%$part%'
+			REPLACE("code", 'U', 'S') LIKE '%$part%'
 SQL;
 		$statement = $this->pdo->prepare($sql);
 		$statement->execute([$match, $match, $cycleCode]);
@@ -156,7 +156,7 @@ SQL;
 		WHERE
 			"denormalizedDivisions"."cycleCode" = ?
 			AND
-			"code" LIKE '%$part%'
+			REPLACE("code", 'U', 'S') LIKE '%$part%'
 			AND
 			"denormalizedParentDivisions"."depth" = 1
 			AND

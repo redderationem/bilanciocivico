@@ -477,8 +477,10 @@ SQL;
 				switch ($this->xmlReader->localName){
 					case 'act':
 						$importAct->execute([$attributes['actTypeCode'], $attributes['code'], $attributes['date'], $attributes['description'], $attributes['code']]);
-						foreach (explode(' ', $attributes['cycleCodes']) as $vv){
-							$importActCycle->execute([$attributes['code'], $vv, $attributes['code'], $vv]);
+						if (isset($attributes['cycleCodes'])){
+							foreach (explode(' ', $attributes['cycleCodes']) as $vv){
+								$importActCycle->execute([$attributes['code'], $vv, $attributes['code'], $vv]);
+							}
 						}
 						break;
 					case 'division':
@@ -487,18 +489,20 @@ SQL;
 					case 'subdivision':
 						$importSubdivision->execute([$attributes['code'], $attributes['cycleCode'], $attributes['description'], $attributes['code'], $attributes['subdivisionTypeCode']]);
 						if (isset($attributes['amount']) && strlen($attributes['amount'])){
-							$importAmount->execute([(int)$attributes['amount'], $attributes['code'], $attributes['code']]);
+							$importAmount->execute([$attributes['amount'], $attributes['code'], $attributes['code']]);
 						}
-						if (strlen($attributes['divisionCode']) && strlen($attributes['divisionCode'])){
+						if (isset($attributes['divisionCode']) && strlen($attributes['divisionCode'])){
 							$importDivisionSubdivision->execute([$attributes['divisionCode'], $attributes['divisionCode'], $attributes['code'], $attributes['code']]);
 						}
 						break;
 					case 'subject':
 						$importSubject->execute([$attributes['code'], $attributes['code'], $attributes['name'], $attributes['subjectTypeCode']]);
-						foreach (explode(' ', $attributes['cycleCodes']) as $vv){
-							$importCycleSubject->execute([$vv, $vv, $attributes['code'], $attributes['code']]);
+						if (isset($attributes['cycleCodes'])){
+							foreach (explode(' ', $attributes['cycleCodes']) as $vv){
+								$importCycleSubject->execute([$vv, $vv, $attributes['code'], $attributes['code']]);
+							}
 						}
-						if (strlen($attributes['taxCode']) && strlen($attributes['taxCode'])){
+						if (isset($attributes['taxCode']) && strlen($attributes['taxCode'])){
 							$importTaxCode->execute([$attributes['taxCode'], $attributes['taxCode'], $attributes['code']]);
 						}
 						if (isset($attributes['vatNumber']) && strlen($attributes['vatNumber'])){
@@ -506,9 +510,15 @@ SQL;
 						}
 						break;
 					case 'transaction':
-						$importTransaction->execute([(int)$attributes['amount'], $attributes['code'], $attributes['cycleCode'], $attributes['date'], $attributes['description'], $attributes['code'], $attributes['transactionTypeCode']]);
+						$importTransaction->execute([$attributes['amount'], $attributes['code'], $attributes['cycleCode'], $attributes['date'], $attributes['description'], $attributes['code'], $attributes['transactionTypeCode']]);
+						if (isset($attributes['cigCodeCode']) && strlen($attributes['cigCodeCode'])){
+							$attributes['cigCode'] = $attributes['cigCodeCode'];
+						}
 						if (isset($attributes['cigCode']) && strlen($attributes['cigCode'])){
 							$importCigCodeTransaction->execute([$attributes['cigCode'], $attributes['cigCode'], $attributes['code'], $attributes['code']]);
+						}
+						if (isset($attributes['cupCodeCode']) && strlen($attributes['cupCodeCode'])){
+							$attributes['cupCode'] = $attributes['cupCodeCode'];
 						}
 						if (isset($attributes['cupCode']) && strlen($attributes['cupCode'])){
 							$importCupCodeTransaction->execute([$attributes['cupCode'], $attributes['cupCode'], $attributes['code'], $attributes['code']]);
@@ -527,6 +537,9 @@ SQL;
 				}
 				$this->xmlReader->moveToElement();
 				switch ($this->xmlReader->localName){
+					case 'actCycle':
+						$importActCycle->execute([$attributes['actCode'], $attributes['cycleCode'], $attributes['actCode'], $attributes['cycleCode']]);
+						break;
 					case 'actDivision':
 						$importActDivision->execute([$attributes['actCode'], $attributes['actCode'], $attributes['divisionCode'], $attributes['divisionCode']]);
 						break;
@@ -535,6 +548,9 @@ SQL;
 						break;
 					case 'actSubject':
 						$importActSubject->execute([$attributes['actCode'], $attributes['actCode'], $attributes['subjectCode'], $attributes['subjectCode']]);
+						break;
+					case 'cycleSubject':
+						$importCycleSubject->execute([$attributes['cycleCode'], $attributes['cycleCode'], $attributes['subjectCode'], $attributes['subjectCode']]);
 						break;
 					case 'division':
 						if (isset($attributes['parentDivisionCode']) && strlen($attributes['parentDivisionCode'])){

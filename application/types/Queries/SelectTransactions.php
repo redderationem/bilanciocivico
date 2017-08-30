@@ -83,7 +83,7 @@ class SelectTransactions{
 			AND 
 			"denormalizedTransactions"."cycleCode" = ?
 			AND 
-			"code" LIKE '%$part%'
+			REPLACE("code", 'U', 'S') LIKE '%$part%'
 SQL;
 		
 		$statement = $this->pdo->prepare($sql);
@@ -129,7 +129,7 @@ SQL;
 			AND
 			"denormalizedTransactions"."cycleCode" = ?
 			AND
-			"code" LIKE '%$part%'
+			REPLACE("code", 'U', 'S') LIKE '%$part%'
 		ORDER BY $by $direction
 		LIMIT $limit
 		OFFSET $offset

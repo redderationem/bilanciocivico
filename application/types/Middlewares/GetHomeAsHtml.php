@@ -35,10 +35,12 @@ use \ReddeRationem\BilancioCivico\Queries\SelectAtAGlance;
 use \ReddeRationem\BilancioCivico\Queries\SelectDivisionsAtAGlance;
 use \Twig_Environment as Environment;
 class GetHomeAsHtml{
+	private $cycleCode = null;
 	private $environment = null;
 	private $selectAtAGlance = null;
 	private $selectDivisionsAtAGlance = null;
-	public function __construct(Environment $environment, SelectAtAGlance $selectAtAGlance, SelectDivisionsAtAGlance $selectDivisionsAtAGlance){
+	public function __construct(string $cycleCode, Environment $environment, SelectAtAGlance $selectAtAGlance, SelectDivisionsAtAGlance $selectDivisionsAtAGlance){
+		$this->cycleCode = (int)$cycleCode;
 		$this->environment = $environment;
 		$this->selectAtAGlance = $selectAtAGlance;
 		$this->selectDivisionsAtAGlance = $selectDivisionsAtAGlance;
@@ -46,7 +48,7 @@ class GetHomeAsHtml{
 	public function __invoke(Request $request, Response $response, callable $next) : Response{
 		$response = $next($request, $response);
 		$arguments = [
-			'cycleCode' => 2015
+			'cycleCode' => $this->cycleCode
 		];
 		$arguments = array_replace(
 			$arguments,
